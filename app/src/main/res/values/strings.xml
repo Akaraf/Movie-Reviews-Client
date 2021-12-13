@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movie Reviews Client</string>
+    <string name="error_message">Something went wrong. Please try again.</string>
+    <string name="retry">Retry</string>
+</resources>
