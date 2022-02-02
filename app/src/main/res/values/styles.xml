@@ -10,8 +10,34 @@
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
     </style>
-    <style name="RecyclerViewMargins">
+    <style name="AllMargin32">
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+    </style>
+    <style name="AllPadding16">
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+    <style name="TopBottomMargin8">
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    
+    <style name="CustomShapeImageView">
+        <item name="shapeAppearanceOverlay">@style/RoundedBottomCorners</item>
+    </style>
+    <style name="RoundedBottomCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">24dp</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+    </style>
+    <style name="OpenInNYTExtendedFloatingActionButton" parent="AllMargin32">
+        <item name="color">@color/light_gray</item>
     </style>
 </resources>

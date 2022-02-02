@@ -1,5 +1,7 @@
 package com.raaf.moviereviewsclient.data.webApi
 
+import androidx.paging.Config
+import com.raaf.moviereviewsclient.API_KEY
 import com.raaf.moviereviewsclient.data.webApi.responseModels.ReviewsResponse
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -9,7 +11,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val API_KEY = "l1dRWWoZl0venQADYN6rNluGe5pPFvSz"
 private const val BASE_URL = "https://api.nytimes.com/svc/movies/v2/"
 
 interface ReviewsService {
@@ -32,5 +33,9 @@ interface ReviewsService {
 
             return retrofit.create(ReviewsService::class.java)
         }
+    }
+
+    object Options {
+        const val TYPE_ALL = "all"
     }
 }

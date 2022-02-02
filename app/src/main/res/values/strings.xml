@@ -2,4 +2,8 @@
     <string name="app_name">Movie Reviews Client</string>
     <string name="error_message">Something went wrong. Please try again.</string>
     <string name="retry">Retry</string>
+    <string name="rating">Rating MPAA:</string>
+    <string name="open_nyt">Open review in NYT</string>
+    <string name="summary_short">Short summary about the review:</string>
+    <string name="by">by</string>
 </resources>

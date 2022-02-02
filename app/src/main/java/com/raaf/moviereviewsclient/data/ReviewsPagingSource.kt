@@ -3,13 +3,14 @@ package com.raaf.moviereviewsclient.data
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.raaf.moviereviewsclient.Paging
+import com.raaf.moviereviewsclient.data.webApi.ReviewsService
+import com.raaf.moviereviewsclient.data.webApi.ReviewsService.Options.TYPE_ALL
 import com.raaf.moviereviewsclient.dataModels.Review
 import javax.inject.Inject
 
-private const val TYPE_ALL = "all"
-
 class ReviewsPagingSource @Inject constructor(
-    private val repository: ReviewsRepository  // We can using web service instead this
+    private val apiService: ReviewsService
 ) : PagingSource<Int, Review>() {
 
     var savedPage: Int? = null
@@ -23,10 +24,12 @@ class ReviewsPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Review> {
         try {
             val page = setPage(params.key)
-            val pageSize = 20
-            val reviews = repository.getReviews(TYPE_ALL, page * 20)
-            val previousKey = if (page != 0) page - 1 else null
-            val nextKey = if (reviews.count() < pageSize) null else page + 1
+            val reviews = apiService.getReviews(
+                TYPE_ALL,
+                offset = page * Paging.PAGE_SIZE
+            ).results
+            val previousKey = if (page != Paging.INITIAL_PAGE) page - 1 else null
+            val nextKey = if (reviews.count() < Paging.PAGE_SIZE) null else page + 1
             return LoadResult.Page(reviews, previousKey, nextKey)
         } catch (e: Exception) {
             return LoadResult.Error(e)
@@ -35,7 +38,7 @@ class ReviewsPagingSource @Inject constructor(
 
     private fun setPage(paramsPage: Int?) : Int {
         val result = if (savedPage != null) savedPage!!
-                else paramsPage ?: 0
+                else paramsPage ?: Paging.INITIAL_PAGE
         savedPage = null
         return result
     }

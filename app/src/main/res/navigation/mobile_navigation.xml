@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/reviewsFragment">
+
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.raaf.moviereviewsclient.ui.ReviewsFragment"
+        android:label="" />
+    <fragment
+        android:id="@+id/detailReviewFragment"
+        android:name="com.raaf.moviereviewsclient.ui.DetailReviewFragment"
+        android:label="" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_detailReviewFragment"
+        app:destination="@id/detailReviewFragment"/>
+</navigation>

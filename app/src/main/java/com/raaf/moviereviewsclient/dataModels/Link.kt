@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MultiMedia(
-    @SerializedName("type")val imageName: String,
-    @SerializedName("src") var url: String?
+data class Link(
+    var type: String?,
+    @SerializedName("url") var reviewUrl: String?,
+    @SerializedName("suggested_link_text") var suggest: String?,
 ) : Parcelable

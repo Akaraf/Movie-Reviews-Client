@@ -3,8 +3,8 @@ package com.raaf.moviereviewsclient.di.components
 import android.app.Application
 import com.raaf.moviereviewsclient.di.modules.ReviewsPagingSourceModule
 import com.raaf.moviereviewsclient.di.modules.ReviewsServiceModule
-import com.raaf.moviereviewsclient.ui.MainActivity
-import com.raaf.moviereviewsclient.ui.MainActivityViewModel
+import com.raaf.moviereviewsclient.ui.DetailReviewViewModel
+import com.raaf.moviereviewsclient.ui.ReviewsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -21,5 +21,6 @@ interface ReviewsComponent {
         fun build(): ReviewsComponent
     }
 
-    fun mainActivityViewModel() : MainActivityViewModel.Factory
+    fun reviewsViewModel() : ReviewsViewModel.Factory
+    fun detailReviewViewModel() : DetailReviewViewModel.Factory
 }
