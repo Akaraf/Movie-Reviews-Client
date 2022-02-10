@@ -1,19 +1,19 @@
 package com.raaf.moviereviewsclient.data
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.raaf.moviereviewsclient.Paging
-import com.raaf.moviereviewsclient.data.webApi.ReviewsService
-import com.raaf.moviereviewsclient.data.webApi.ReviewsService.Options.TYPE_ALL
 import com.raaf.moviereviewsclient.dataModels.Review
+import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
 class ReviewsPagingSource @Inject constructor(
-    private val apiService: ReviewsService
+    private val dataSource: ReviewsDataSource
 ) : PagingSource<Int, Review>() {
 
     var savedPage: Int? = null
+    var isNeedToRefillingUIFlow = MutableSharedFlow<Boolean>()
+    var isNeedToShowToastFlow = MutableSharedFlow<Boolean>()
 
     override fun getRefreshKey(state: PagingState<Int, Review>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
@@ -22,18 +22,22 @@ class ReviewsPagingSource @Inject constructor(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Review> {
-        try {
+        return try {
             val page = setPage(params.key)
-            val reviews = apiService.getReviews(
-                TYPE_ALL,
-                offset = page * Paging.PAGE_SIZE
-            ).results
+            val reviews = dataSource.getReviews(page)
+            updateUIConfiguration()
+            if (reviews.isEmpty()) throw Exception("no data")
             val previousKey = if (page != Paging.INITIAL_PAGE) page - 1 else null
-            val nextKey = if (reviews.count() < Paging.PAGE_SIZE) null else page + 1
-            return LoadResult.Page(reviews, previousKey, nextKey)
+            val nextKey = if (dataSource.isLastPage) null else page + 1
+            LoadResult.Page(reviews, previousKey, nextKey)
         } catch (e: Exception) {
-            return LoadResult.Error(e)
+            LoadResult.Error(e)
         }
+    }
+
+    private suspend fun updateUIConfiguration() {
+        if (dataSource.isNeedToShowToast) isNeedToShowToastFlow.emit(true)
+        if (dataSource.isNeedToRefillingUI) isNeedToRefillingUIFlow.emit(true)
     }
 
     private fun setPage(paramsPage: Int?) : Int {

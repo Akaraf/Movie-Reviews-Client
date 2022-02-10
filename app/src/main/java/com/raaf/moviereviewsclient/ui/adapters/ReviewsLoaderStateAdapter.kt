@@ -15,10 +15,12 @@ import com.raaf.moviereviewsclient.R
 
 //wrapper for displaying the status of loading list content and error handling
 
-class ReviewsLoaderStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<ReviewsLoaderStateAdapter.LoaderViewHolder>() {
+class ReviewsLoaderStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<ReviewsLoaderStateAdapter.LoaderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoaderViewHolder =
-        LoaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_reviews_load_state, parent, false), retry)
+        LoaderViewHolder(LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_reviews_load_state, parent, false), retry)
 
     override fun onBindViewHolder(holder: LoaderViewHolder, loadState: LoadState) {
         holder.bind(loadState)

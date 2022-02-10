@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,8 +41,8 @@ class ReviewsAdapter(private val layoutManager: LinearLayoutManager,
             .centerCrop()
             .into(holderReviews.reviewImage)
         if (currentReview != null) {
-            holderReviews.reviewName.text = currentReview!!.filmName
-            holderReviews.reviewDescription.text = currentReview!!.reviewContent
+            holderReviews.reviewName.text = currentReview.filmName
+            holderReviews.reviewDescription.text = currentReview.reviewContent
         }
         holderReviews.review = currentReview
     }

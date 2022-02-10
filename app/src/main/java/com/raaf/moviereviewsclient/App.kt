@@ -4,7 +4,8 @@ import android.app.Application
 import com.raaf.moviereviewsclient.di.components.DaggerReviewsComponent
 import com.raaf.moviereviewsclient.di.components.ReviewsComponent
 
-class App : Application() {
+class
+App : Application() {
 
     companion object {
         lateinit var reviewsComponent: ReviewsComponent

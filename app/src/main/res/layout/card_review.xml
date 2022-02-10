@@ -45,5 +45,4 @@
         app:layout_constraintStart_toEndOf="@+id/review_i_v"
         app:layout_constraintTop_toBottomOf="@+id/review_name_t_v"
         app:layout_constraintVertical_bias="0.0" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
