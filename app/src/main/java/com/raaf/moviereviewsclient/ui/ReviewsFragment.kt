@@ -122,6 +122,7 @@ class ReviewsFragment : Fragment() {
                 reviewsVM.isNeedToClearReviews?.onEach {
                     if (it) {
                         reviewsAdapter.submitData(lifecycle, PagingData.empty())
+                        reviewsRV.adapter?.notifyDataSetChanged()
                         setNewPagingSource()
                     }
                 }?.collect()

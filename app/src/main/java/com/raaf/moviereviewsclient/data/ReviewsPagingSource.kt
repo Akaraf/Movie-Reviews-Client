@@ -37,7 +37,7 @@ class ReviewsPagingSource @Inject constructor(
 
     private suspend fun updateUIConfiguration() {
         if (dataSource.isNeedToShowToast) isNeedToShowToastFlow.emit(true)
-        if (dataSource.isNeedToRefillingUI) isNeedToRefillingUIFlow.emit(true)
+        if (dataSource.isNeedToDestroyDataSource) isNeedToRefillingUIFlow.emit(true)
     }
 
     private fun setPage(paramsPage: Int?) : Int {

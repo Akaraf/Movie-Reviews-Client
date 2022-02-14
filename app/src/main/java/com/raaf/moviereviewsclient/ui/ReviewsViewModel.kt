@@ -25,8 +25,6 @@ class ReviewsViewModel @AssistedInject constructor(
     private var pagingSource: ReviewsPagingSource? = null
     set(value) {
         field = value
-        isNeedToClearReviews = pagingSource?.isNeedToRefillingUIFlow
-        isNeedToShowToast = pagingSource?.isNeedToShowToastFlow
         initPagingFlows()
     }
     private var savedPosition: Int? = null
@@ -55,6 +53,9 @@ class ReviewsViewModel @AssistedInject constructor(
         ) {
             pagingSource!!
         }.flow.cachedIn(viewModelScope)
+
+        isNeedToClearReviews = pagingSource?.isNeedToRefillingUIFlow
+        isNeedToShowToast = pagingSource?.isNeedToShowToastFlow
     }
 
     private fun initPagingSource() {

@@ -20,12 +20,13 @@ class ReviewsDataSource @Inject constructor(
         private const val TAG = "ReviewsDataSource"
     }
 
-    var isLastPage = false//only for api
+//    only for api
+    var isLastPage = false
     private set
     private var isUsingDBSource = false
     var isNeedToShowToast = false
     private set
-    var isNeedToRefillingUI = false
+    var isNeedToDestroyDataSource = false
     private set
 
     val reviewsDao: ReviewsDao by lazy {
@@ -82,7 +83,7 @@ class ReviewsDataSource @Inject constructor(
 
     private fun startOnlineMod() {
         isUsingDBSource = false
-        isNeedToRefillingUI = true
+        isNeedToDestroyDataSource = true
     }
 
     private fun startOfflineMod() {
@@ -91,7 +92,7 @@ class ReviewsDataSource @Inject constructor(
     }
 
     private fun resetPreviousConfiguration() {
-        isNeedToRefillingUI = false
+        isNeedToDestroyDataSource = false
         isNeedToShowToast = false
     }
 
