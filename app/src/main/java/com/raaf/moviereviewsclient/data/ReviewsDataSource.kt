@@ -9,6 +9,7 @@ import com.raaf.moviereviewsclient.data.db.reviews.ReviewsDatabase
 import com.raaf.moviereviewsclient.data.webApi.ReviewsService
 import com.raaf.moviereviewsclient.dataModels.Review
 import kotlinx.coroutines.*
+import java.lang.IndexOutOfBoundsException
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -104,13 +105,20 @@ class ReviewsDataSource @Inject constructor(
 
     private suspend fun getReviewsFromDB(page: Int) : List<Review> {
         if (reviewsFromDB.isEmpty()) loadReviewsFromDB()
-        return reviewsFromDB.subList(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+        return try {
+            reviewsFromDB.subList(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
+        } catch (e: IndexOutOfBoundsException) {
+            if (reviewsFromDB.lastIndex >= page * PAGE_SIZE) {
+                reviewsFromDB.subList(page * PAGE_SIZE, reviewsFromDB.lastIndex)
+            } else emptyList<Review>()
+        }
     }
 
-    private fun saveReviewsInDB(reviews: List<Review>, page: Int) {
+    private suspend fun saveReviewsInDB(reviews: List<Review>, page: Int) {
         if (page == INITIAL_PAGE) {
             coroutineScope.launch {
                 reviewsDB.clearAllTables()
+                reviewsDao.clearTableOptions()
             }
         }
         coroutineScope.launch {

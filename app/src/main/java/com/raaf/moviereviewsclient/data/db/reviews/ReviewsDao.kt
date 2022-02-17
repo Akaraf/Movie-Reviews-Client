@@ -16,4 +16,7 @@ interface ReviewsDao : BaseDao<Review> {
 
     @Query("DELETE FROM reviews")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM sqlite_sequence")
+    suspend fun clearTableOptions()
 }
